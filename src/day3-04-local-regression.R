@@ -2,10 +2,12 @@
 library(spgwr)
 
 # Set working directory
+dataFolder<-"data/Puerto-Rico-Farm/"
+
 setwd(file.path(Sys.getenv("USERPROFILE"),"Desktop\\d3-sr\\data"))
 
 # Read Puerto Rico farm data
-pr.f <- read.csv(file="PR-farm-data.csv")
+pr.f <- read.csv(file=paste0(dataFolder, "PR-farm-data.csv"))
 
 # Calculate irrigated farm density in 2007
 ifarm.den07 <- pr.f$irr_farms_07/pr.f$area

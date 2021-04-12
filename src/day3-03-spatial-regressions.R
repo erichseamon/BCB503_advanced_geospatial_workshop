@@ -4,10 +4,13 @@ library(spatialreg)
 library(maptools)
 
 # Set working directory
-setwd(file.path(Sys.getenv("USERPROFILE"),"Desktop\\d3-sr\\data"))
+#setwd(file.path(Sys.getenv("USERPROFILE"),"Desktop\\d3-sr\\data"))
+setwd("/mnt/lfs2/erichs/git/BCB503_advanced_geospatial_workshop/data/Puerto-Rico-Farm/")
+dataFolder<-"data/Puerto-Rico-Farm/"
 
 # Read Puerto Rico farm data
-pr.f <- read.csv(file="PR-farm-data.csv")
+pr.f <- read.csv(file=paste0(dataFolder, "PR-farm-data.csv"))
+
 
 # Calculate irrigated farm density in 2007
 ifarm.den07 <- pr.f$irr_farms_07/pr.f$area
@@ -17,7 +20,7 @@ y <- log(ifarm.den07 + 0.04)
 rain <- pr.f$rain_mean
 
 # Read spatial neighbor information
-pr.nb <- read.gal("PuertoRico.GAL")
+pr.nb <- spdep::read.gal("PuertoRico.gal")
 # Generate listw object with W and B styles
 pr.listw <- nb2listw(pr.nb, style="W")
 pr.listb <- nb2listw(pr.nb, style="B")
@@ -54,3 +57,4 @@ moran.test(if.sem.res, pr.listw)
 
 # Model selection by Lagrange Multiplier test
 lm.LMtests(if.lm, pr.listw, test = "all")
+
