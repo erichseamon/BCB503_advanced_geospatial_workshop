@@ -1,14 +1,17 @@
 #One short example with California precipitation data
-if (!require("rspatial")) devtools::install_github('rspatial/rspatial')
-library(rspatial)
-counties <- sp_data('counties')
-p <- sp_data('precipitation')
+#if (!require("rspatial")) devtools::install_github('rspatial/rspatial')
+#library(rspatial)
+
+datafolder <- "data/GWR/"
+counties <- readShapePoly(paste0(datafolder, "counties.shp", sep=""))
+p <- read.csv(paste0(datafolder, "precipitation.csv", sep=""))
+
 head(p)
 plot(counties)
 points(p[,c('LONG', 'LAT')], col='red', pch=20)
 
 #Compute annual average precipitation
-p$pan <- rowSums(p[,6:17])
+p$pan <- rowSums(p[,7:18])
 
 #Global regression model
 m <- lm(pan ~ ALT, data=p)
@@ -19,6 +22,7 @@ alb <- CRS("+proj=aea +lat_1=34 +lat_2=40.5 +lat_0=0 +lon_0=-120 +x_0=0 +y_0=-40
 sp <- p
 coordinates(sp) = ~ LONG + LAT
 crs(sp) <- "+proj=longlat +datum=NAD83"
+crs(counties) <- "+proj=longlat +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0 "
 spt <- spTransform(sp, alb)
 ctst <- spTransform(counties, alb)
 
@@ -39,10 +43,10 @@ g <- gwr(pan ~ ALT, data=spt, bandwidth=bw, fit.points=newpts[, 1:2])
 g
 
 #Link the results back to the raster
-slope <- r
+coef_slope <- r
 intercept <- r
-slope[!is.na(slope)] <- g$SDF$ALT
+coef_slope[!is.na(coef_slope)] <- g$SDF$ALT
 intercept[!is.na(intercept)] <- g$SDF$'(Intercept)'
-s <- stack(intercept, slope)
-names(s) <- c('intercept', 'slope')
+s <- stack(intercept, coef_slope)
+names(s) <- c('intercept', 'slope of coefficient')
 plot(s)
