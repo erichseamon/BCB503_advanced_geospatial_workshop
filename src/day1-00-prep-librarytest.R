@@ -25,6 +25,7 @@ usePackage("gridExtra")    # Multiple plot
 usePackage("spatialreg")
 usePackage("maptools")
 usePackage("plyr")
+usePackage("dpylr")
 usePackage("gstat")
 usePackage("car")
 usePackage("RStoolbox")
