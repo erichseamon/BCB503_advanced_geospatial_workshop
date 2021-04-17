@@ -2,6 +2,9 @@
 #if (!require("rspatial")) devtools::install_github('rspatial/rspatial')
 #library(rspatial)
 
+library( spgwr )
+
+
 datafolder <- "data/GWR/"
 counties <- readShapePoly(paste0(datafolder, "counties.shp", sep=""))
 p <- read.csv(paste0(datafolder, "precipitation.csv", sep=""))
@@ -27,7 +30,6 @@ spt <- spTransform(sp, alb)
 ctst <- spTransform(counties, alb)
 
 #Get the optimal bandwidth
-library( spgwr )
 ## NOTE: This package does not constitute approval of GWR
 ## as a method of spatial analysis; see example(gwr)
 bw <- gwr.sel(pan ~ ALT, data=spt)
@@ -47,6 +49,6 @@ coef_slope <- r
 intercept <- r
 coef_slope[!is.na(coef_slope)] <- g$SDF$ALT
 intercept[!is.na(intercept)] <- g$SDF$'(Intercept)'
-s <- stack(intercept, coef_slope)
-names(s) <- c('intercept', 'slope of coefficient')
+s <- stack(coef_slope, intercept)
+names(s) <- c('slope of coefficient', 'intercept')
 plot(s)
