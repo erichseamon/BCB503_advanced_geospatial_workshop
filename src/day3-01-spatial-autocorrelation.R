@@ -22,11 +22,15 @@ library(spdep)
 library(maptools)
 
 # Set working directory
-setwd(file.path(Sys.getenv("USERPROFILE"),"Desktop\\d3-sr\\data"))
+datafolder <- "data/Puerto-Rico-Farm/"
 
 # Read shapefile and spatial neighbor file
-pr <- readShapePoly("PuertoRico_SPCS.shp")
-pr.nb <- read.gal("PuertoRico.GAL")
+pr <- readShapePoly(paste0(datafolder, "PuertoRico_SPCS.shp", sep=""))
+
+#Use readOGR as an alternative to deprecated maptools
+#pr <- rgdal::readOGR(dsn=datafolder, layer="PuertoRico_SPCS")
+
+pr.nb <- read.gal(paste0(datafolder, "PuertoRico.gal", sep=""))
 
 # Create a listw object for binary type spatial weights
 pr.listw <- nb2listw(pr.nb, style="B")
@@ -91,6 +95,8 @@ gobal.moran.mc <- moran.mc(SPDF$Rate,
 
 # View results (including p-value)
 gobal.moran.mc
+
+par(mar=c(6,3,3,3))
 
 # Plot the distribution (note that this is a density plot instead of a histogram)
 plot(gobal.moran.mc, main="", las=1)

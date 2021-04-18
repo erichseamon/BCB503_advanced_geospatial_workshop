@@ -13,22 +13,22 @@ library(dplyr)
 # Learners will have these data loaded from earlier episode
 # DSM data for Harvard Forest
 
-DSM_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 
 # DTM data for Harvard Forest
-DTM_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
 DTM_HARV_df <- as.data.frame(DTM_HARV, xy = TRUE)
 
 # DSM data for SJER
-DSM_SJER <- raster("../data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
 
 DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 
 # DTM data for SJER
-DTM_SJER <- raster("../data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
+DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
 
 DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 
@@ -61,8 +61,8 @@ DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 #and resolutions? Do they both have defined minimum and maximum values?
 
 ## Solution
-GDALinfo("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
-GDALinfo("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
 

@@ -38,9 +38,9 @@ library(dplyr)
 
 #First, we need to import the DTM and DTM hillshade data.
 
-DTM_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
-DTM_hill_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+DTM_hill_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
 #Next, we will convert each of these datasets to a dataframe for 
 #plotting with `ggplot`.

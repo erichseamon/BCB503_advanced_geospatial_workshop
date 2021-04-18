@@ -23,7 +23,7 @@ library(dplyr)
 #If we read a RasterStack object into R using the `raster()` function, it only reads
 #in the first band.
 
-RGB_band1_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+RGB_band1_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 
 #We need to convert this data to a data frame in order to plot it with `ggplot`. 
@@ -76,7 +76,7 @@ RGB_band1_HARV
 #by specifying which band we want with `band = N` (N represents the band 
 #number we want to work with). To import the green band, we would use `band = 2`.
 
-RGB_band2_HARV <-  raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", band = 2)
+RGB_band2_HARV <-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", band = 2)
 
 
 #We can convert this data to a data frame and plot the same way we plotted the 

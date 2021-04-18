@@ -23,8 +23,8 @@
 #   
   
 ##### Load R packages
-dyn.load("/opt/modules/climatology/gdal/3.0.2/lib/libgdal.so")
-library(sf, lib="/mnt/lfs2/erichs/R/x86_64-pc-linux-gnu-library/3.6/")
+#dyn.load("/opt/modules/climatology/gdal/3.0.2/lib/libgdal.so")
+#library(sf, lib="/mnt/lfs2/erichs/R/x86_64-pc-linux-gnu-library/3.6/")
 
 library(GWmodel)      ### GW models
 library(sp)           ## Data management

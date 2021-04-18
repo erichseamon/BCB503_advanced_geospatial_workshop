@@ -14,19 +14,19 @@ library(dplyr)
 # Learners will have this data loaded from earlier episodes
 # shapefiles
 
-point_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-lines_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-aoi_boundary_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
 # CHM
 CHM_HARV <-
-  raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 
 CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 
 # plot locations
 plot_locations_HARV <-
-  read.csv("../data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
 utm18nCRS <- st_crs(point_HARV)
 plot_locations_sp_HARV <- st_as_sf(plot_locations_HARV, 
                                    coords = c("easting", "northing"), 
@@ -62,8 +62,8 @@ CHM_HARV_sp <- st_as_sf(CHM_HARV_df, coords = c("x", "y"), crs = utm18nCRS)
 # approximate the boundary box with a random sample of raster points
 
 CHM_rand_sample <- sample_n(CHM_HARV_sp, 10000)
-lines_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-plots_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+plots_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/PlotLocations_HARV.shp")
 
 
 # code not shown, for demonstration purposes only 

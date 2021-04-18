@@ -36,12 +36,12 @@ library(rgdal)
 #It is ideal to do this before importing your data.
 
 
-GDALinfo("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 #If you wish to store this information in R, you can do the following:
 
 HARV_dsmCrop_info <- capture.output(
-  GDALinfo("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+  GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 )
 
 
@@ -67,7 +67,7 @@ HARV_dsmCrop_info <- capture.output(
 
 
 DSM_HARV <- 
-  raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV
 
@@ -229,7 +229,7 @@ nlayers(DSM_HARV)
 # Use stack function to read in all bands
 
 RGB_stack <-
-  stack("../data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+  stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 # aggregate cells from 0.25m to 2m for plotting to speed up the lesson and 
 # save memory
@@ -335,7 +335,7 @@ rm(RGB_2m, RGB_stack, RGB_2m_df_nd, RGB_2m_df, RGB_2m_nas)
 
 ## Answers
 
-GDALinfo("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 #`NoDataValue` are encoded as -9999.
 
@@ -426,7 +426,7 @@ ggplot() +
 
 ## Answers
 
-GDALinfo("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
+GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 
 #1. If this file has the same CRS as DSM_HARV?  Yes: UTM Zone 18, WGS84, meters.
