@@ -1,4 +1,10 @@
-# 
+#Title: day3-02-regression-kriging.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
+
+
 # Regression kriging (RK) mathematically equivalent to the universal kriging or kriging with external drift, where auxiliary 
 # predictors are used directly to solve the kriging weights.  Regression kriging combines a regression model with simple 
 # kriging of the regression residuals. The experimental variogram of residuals is first computed and modeled, and then 

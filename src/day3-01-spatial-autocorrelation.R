@@ -1,3 +1,9 @@
+#Title: day3-01-spatial-autocorrelation.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
+
 library(sp)           ## Data management
 library(spdep)        ## Spatial autocorrelation
 library(gstat)        ## Geostatistics

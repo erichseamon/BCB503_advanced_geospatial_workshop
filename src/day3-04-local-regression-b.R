@@ -1,3 +1,10 @@
+#Title: day3-04-local-regression.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
+
+
 #One short example with California precipitation data
 #if (!require("rspatial")) devtools::install_github('rspatial/rspatial')
 #library(rspatial)

@@ -1,3 +1,10 @@
+#Title: day3-03-spatial-regressions.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
+
+
 ##02:spatial lag model, spatial error model, and model selection
 library(spdep)
 library(spatialreg)
