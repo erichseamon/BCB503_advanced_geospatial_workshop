@@ -1,13 +1,13 @@
 #Title: intro-03-data-structures-part1.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 
-#load the nordic-data csv.  
+#load the nordic-data csv  
 
-nordic <- read.csv("../data/nordic-data.csv")
+nordic <- read.csv("data/nordic-data.csv")
 
 
 #We can begin exploring our dataset right away, pulling out columns by specifying
@@ -55,7 +55,7 @@ class(factor('banana'))
 #`lifeExp` column:
 
 
-nordic_2 <- read.csv("../data/nordic-data-2.csv")
+nordic_2 <- read.csv("data/nordic-data-2.csv")
 class(nordic_2$lifeExp)
 
 

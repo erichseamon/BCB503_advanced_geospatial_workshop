@@ -1,4 +1,4 @@
-#Title: rv-09-vector-when-data-dont-line-up-crs.R
+#Title: day2-04-vector-when-data-dont-line-up-crs.R
 #BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
 #Data Carpentry Advanced Geospatial Analysis

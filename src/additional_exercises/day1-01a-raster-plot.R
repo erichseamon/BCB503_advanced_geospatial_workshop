@@ -1,8 +1,8 @@
-#Title: rv-02-raster-l=plot.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day1-01a-raster-plot.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 
 library(raster)
@@ -14,7 +14,7 @@ library(dplyr)
 # Learners will have this data loaded from earlier episode
 # DSM data for Harvard Forest
 
-DSM_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
+DSM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 DSM_HARV_df <- as.data.frame(DSM_HARV, xy = TRUE)
 
@@ -190,7 +190,7 @@ ggplot() +
 #First we need to read in our DSM hillshade data and view the structure:
 
 DSM_hill_HARV <-
-  raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
+  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 
 DSM_hill_HARV
 
@@ -253,13 +253,13 @@ ggplot() +
 ## Answers
 
  # import DSM data
- DSM_SJER <- raster("../data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+ DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
  
  # convert to a df for plotting
  DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
 
  # import DSM hillshade
- DSM_hill_SJER <- raster("../data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
+ DSM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmHill.tif")
  
  # convert to a df for plotting
  DSM_hill_SJER_df <- as.data.frame(DSM_hill_SJER, xy = TRUE)
@@ -291,12 +291,12 @@ ggplot() +
  # CREATE DTM MAP
  # import DTM
  
- DTM_SJER <- raster("../data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
+ DTM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmCrop.tif")
  DTM_SJER_df <- as.data.frame(DTM_SJER, xy = TRUE)
 
  # DTM Hillshade
  
- DTM_hill_SJER <- raster("../data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
+ DTM_hill_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DTM/SJER_dtmHill.tif")
  DTM_hill_SJER_df <- as.data.frame(DTM_hill_SJER, xy = TRUE)
 
  ggplot() +

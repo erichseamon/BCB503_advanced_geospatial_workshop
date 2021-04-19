@@ -1,8 +1,8 @@
-#Title: rv-14-extract-ndvi-from-rasters-in-r.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day1-14a-extract-ndvi-from-rasters-in-r.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 
 library(raster)
@@ -13,7 +13,7 @@ library(dplyr)
 
 # learners will have this data loaded from the previous episode
 
-all_NDVI_HARV <- list.files("../data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
+all_NDVI_HARV <- list.files("data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI", full.names = TRUE, pattern = ".tif$")
 
 # Create a time series raster stack
 NDVI_HARV_stack <- stack(all_NDVI_HARV)

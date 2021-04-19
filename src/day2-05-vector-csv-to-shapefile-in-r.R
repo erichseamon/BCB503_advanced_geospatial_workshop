@@ -1,4 +1,4 @@
-#Title: rv-10-vector-csv-to-shapefile-r.R
+#Title: day2-05-vector-csv-to-shapefile-r.R
 #BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
 #Data Carpentry Advanced Geospatial Analysis

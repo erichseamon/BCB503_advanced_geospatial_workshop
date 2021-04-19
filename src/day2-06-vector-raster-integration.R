@@ -1,4 +1,4 @@
-#Title: rv-11-vector-raster-integration.R
+#Title: day2-06-vector-raster-integration.R
 #BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
 #Data Carpentry Advanced Geospatial Analysis

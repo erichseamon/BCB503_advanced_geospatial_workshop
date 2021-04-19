@@ -1,13 +1,13 @@
 #Title: intro-07-ggplot2.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 
 # Silently load in the data so the rest of the lesson works
 
-gapminder <- read.csv("../data/gapminder_data.csv", header = TRUE)
+gapminder <- read.csv("data/gapminder_data.csv", header = TRUE)
 
 # load libraries that learners will already have
 # loaded from previous episodes

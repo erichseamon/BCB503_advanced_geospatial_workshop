@@ -1,4 +1,4 @@
-#Title: rv-07-vector-shapefile-attributes-in-r.R
+#Title: day2-02-vector-shapefile-attributes-in-r.R
 #BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
 #Data Carpentry Advanced Geospatial Analysis

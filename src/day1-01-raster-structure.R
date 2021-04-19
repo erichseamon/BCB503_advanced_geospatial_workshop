@@ -1,4 +1,4 @@
-#Title: rv-01-raster-structure.R
+#Title: day1-01-raster-structure.R
 #BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
 #Data Carpentry Advanced Geospatial Analysis
@@ -114,9 +114,9 @@ str(DSM_HARV_df)
 
 
 ggplot() +
-    geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
-    scale_fill_viridis_c() +
-    coord_quickmap()
+  geom_raster(data = DSM_HARV_df , aes(x = x, y = y, fill = HARV_dsmCrop)) +
+  scale_fill_viridis_c() +
+  coord_quickmap()
 
 ## Plotting Tip
 #For faster, simpler plots, you can use the `plot` function from the `raster` package.
@@ -190,8 +190,8 @@ maxValue(DSM_HARV)
 
 DSM_HARV <- setMinMax(DSM_HARV)
 
-#We can see that the elevation at our site ranges from `r minValue(DSM_HARV)`m 
-#to `r maxValue(DSM_HARV)`m.
+#We can see that the elevation at our site ranges from minValue(DSM_HARV)
+maxValue(DSM_HARV)
 
 ## Raster Bands
 
@@ -226,6 +226,13 @@ nlayers(DSM_HARV)
 #The camera did not collect data in these areas.
 
 
+#BELOW NOT DESCRIBED IN DATA CARPENTRY EPISODE  Below code shows how to view nodatavalues
+#and them remove them for plotting
+
+
+#---addition begin
+
+
 # Use stack function to read in all bands
 
 RGB_stack <-
@@ -249,14 +256,13 @@ RGB_2m_df  <- as.data.frame(RGB_2m, xy = TRUE)
 names(RGB_2m_df) <- c('x', 'y', 'red', 'green', 'blue')
 
 ggplot() +
- geom_raster(data = RGB_2m_df , aes(x = x, y = y, fill = red),
-             show.legend = FALSE) +
+  geom_raster(data = RGB_2m_df , aes(x = x, y = y, fill = red),
+              show.legend = FALSE) +
   scale_fill_gradient(low = 'black', high = "red") +
   ggtitle("Orthographic Imagery", subtitle = 'Red Band') +
   coord_quickmap()
 
 
-# demonstration code - not being taught
 
 RGB_2m_df_nd <- RGB_2m_df
 
@@ -265,7 +271,7 @@ RGB_2m_df_nd <- RGB_2m_df
 RGB_2m_df_nd$hex <- rgb(RGB_2m_df_nd$red,
                         RGB_2m_df_nd$green,
                         RGB_2m_df_nd$blue, maxColorValue = 255)
-                        
+
 # set black hex code to NA
 
 RGB_2m_df_nd$hex[RGB_2m_df_nd$hex == '#000000'] <- NA_character_ 
@@ -275,7 +281,6 @@ ggplot() +
   scale_fill_identity() +
   ggtitle("Orthographic Imagery", subtitle = "All bands") +
   coord_quickmap()
-
 
 
 #If your raster already has `NA` values set correctly but you aren't 
@@ -288,14 +293,14 @@ ggplot() +
 #layer to contain a colour instruction for `NA` values, like 
 #`scale_fill_viridis_c(na.value = 'deeppink')`
 
-# demonstration code
 # function to replace 0 with NA where all three values are 0 only
 
 RGB_2m_nas <- calc(RGB_2m, 
                    fun = function(x) {
-                           x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
-                           x
+                     x[rowSums(x == 0) == 3, ] <- rep(NA, nlayers(RGB_2m))
+                     x
                    })
+
 RGB_2m_nas <- as.data.frame(RGB_2m_nas, xy = TRUE)
 
 ggplot() +
@@ -327,6 +332,9 @@ rm(RGB_2m, RGB_stack, RGB_2m_df_nd, RGB_2m_df, RGB_2m_nas)
 #in the raster's metadata. If a `NoDataValue` was stored in the GeoTIFF 
 #tag, when R opens up the raster, it will assign each instance of the 
 #value to `NA`. Values of `NA` will be ignored by R as demonstrated above.
+
+#---addition end
+
 
 ## Challenge
 
@@ -389,7 +397,7 @@ rm(DSM_highvals)
 #useful in identifying outliers and bad data values in our raster data.
 
 ggplot() +
-    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop))
+  geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop))
 
 
 #Notice that a warning message is thrown when R creates the histogram.
@@ -402,7 +410,7 @@ ggplot() +
 
 
 ggplot() +
-    geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40)
+  geom_histogram(data = DSM_HARV_df, aes(HARV_dsmCrop), bins = 40)
 
 
 
@@ -434,5 +442,4 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_DSMhill.tif")
 #3. The resolution of the raster data? 1x1
 #4. How large a 5x5 pixel area would be? 5mx5m How? We are given resolution of 1x1 and units in meters, therefore resolution of 5x5 means 5x5m.
 #5. Is the file a multi- or single-band raster?  Single.
-
 

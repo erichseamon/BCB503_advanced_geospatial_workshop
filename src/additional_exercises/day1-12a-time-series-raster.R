@@ -1,8 +1,8 @@
-#Title: rv-12-time-series-raster.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day1-12a-time-series-raster.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 library(raster)
 library(rgdal)
@@ -65,7 +65,7 @@ library(scales)
 #This pattern matching uses a  language called "regular expressions", which 
 #is beyond the scope of this workshop. 
  
-NDVI_HARV_path <- "../data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"
+NDVI_HARV_path <- "data/NEON-DS-Landsat-NDVI/HARV/2011/NDVI"
 
 all_NDVI_HARV <- list.files(NDVI_HARV_path,
                             full.names = TRUE,
@@ -215,7 +215,7 @@ ggplot(NDVI_HARV_stack_df) +
 #of that dataframe:
 
 har_met_daily <-
-  read.csv("../data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv")
+  read.csv("data/NEON-DS-Met-Time-Series/HARV/FisherTower-Met/hf001-06-daily-m.csv")
 
 str(har_met_daily)
 
@@ -257,7 +257,7 @@ ggplot() +
 # code not shown, demonstration only
 # Plot RGB data for Julian day 133
 
-RGB_133 <- stack("../data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
+RGB_133 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/133_HARV_landRGB.tif")
 RGB_133_df <- as.data.frame(RGB_133, xy = TRUE)
 quantiles = c(0.02, 0.98)
 r <- quantile(RGB_133_df$X133_HARV_landRGB.1, quantiles, na.rm = TRUE)
@@ -278,7 +278,7 @@ ggplot() +
   ggtitle("Julian day 133")
 
 # Plot RGB data for Julian day 197
-RGB_197 <- stack("../data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
+RGB_197 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/197_HARV_landRGB.tif")
 RGB_197 <- RGB_197/255
 RGB_197_df <- as.data.frame(RGB_197, xy = TRUE)
 r <- quantile(RGB_197_df$X197_HARV_landRGB.1, quantiles, na.rm = TRUE)
@@ -309,7 +309,7 @@ ggplot() +
 
 #First we need to load in the RGB data for Julian day 277 and look at its metadata.
  
-RGB_277 <- stack("../data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
+RGB_277 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/277_HARV_landRGB.tif")
 RGB_277
 
 
@@ -338,7 +338,7 @@ ggplot() +
 #We then do the same steps for Julian day 293
  
 # Julian day 293
-RGB_293 <- stack("../data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
+RGB_293 <- stack("data/NEON-DS-Landsat-NDVI/HARV/2011/RGB/293_HARV_landRGB.tif")
 RGB_293 <- RGB_293/255
 RGB_293_df <- as.data.frame(RGB_293, xy = TRUE)
 RGB_293_df$rgb <- with(RGB_293_df, rgb(X293_HARV_landRGB.1, X293_HARV_landRGB.2, X293_HARV_landRGB.3,1))

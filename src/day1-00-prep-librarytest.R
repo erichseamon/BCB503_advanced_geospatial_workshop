@@ -1,5 +1,15 @@
+#day1-00-prep-librarytest.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
+
+
+#for use on IBEST/IMCI cluster
 #dyn.load("/opt/modules/climatology/gdal/3.0.2/lib/libgdal.so")
 #usePackage(sf, lib="/mnt/lfs2/erichs/R/x86_64-pc-linux-gnu-usePackage/3.6/")
+
+
 usePackage <- function(p) {
   if (!is.element(p, installed.packages()[,1]))
     install.packages(p, dep = TRUE, repos = "http://cran.us.r-project.org")

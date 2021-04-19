@@ -1,4 +1,4 @@
-#Title: rv-05-raster-multi-band-in-r.R
+#Title: day1-04-raster-multi-band-in-r.R
 #BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
 #Data Carpentry Advanced Geospatial Analysis
