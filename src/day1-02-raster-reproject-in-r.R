@@ -1,8 +1,8 @@
-#Title: rv-03-raster-reproject-in-r.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day1-02-raster-reproject-in-r.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 library(raster)
 library(rgdal)
@@ -38,9 +38,9 @@ library(dplyr)
 
 #First, we need to import the DTM and DTM hillshade data.
 
-DTM_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
+DTM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 
-DTM_hill_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
+DTM_hill_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_DTMhill_WGS84.tif")
 
 #Next, we will convert each of these datasets to a dataframe for 
 #plotting with `ggplot`.
@@ -51,16 +51,18 @@ DTM_hill_HARV_df <- as.data.frame(DTM_hill_HARV, xy = TRUE)
 
 
 #Now we can create a map of the DTM layered over the hillshade.
+#Alpha refers to the opacity of a geom. Values of alpha range from 
+#0 to 1, with lower values corresponding to more transparent colors.
 
 ggplot() +
-     geom_raster(data = DTM_HARV_df , 
-                 aes(x = x, y = y, 
+  geom_raster(data = DTM_HARV_df , 
+              aes(x = x, y = y, 
                   fill = HARV_dtmCrop)) + 
-     geom_raster(data = DTM_hill_HARV_df, 
-                 aes(x = x, y = y, 
-                   alpha = HARV_DTMhill_WGS84)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
+  geom_raster(data = DTM_hill_HARV_df, 
+              aes(x = x, y = y, 
+                  alpha = HARV_DTMhill_WGS84)) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 
 #Our results are curious - neither the Digital Terrain Model (`DTM_HARV_df`) 
@@ -68,21 +70,21 @@ ggplot() +
 #Let's try to plot the DTM on its own to make sure there are data there.
 
 ggplot() +
-geom_raster(data = DTM_HARV_df,
-    aes(x = x, y = y,
-    fill = HARV_dtmCrop)) +
-scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-coord_quickmap()
+  geom_raster(data = DTM_HARV_df,
+              aes(x = x, y = y,
+                  fill = HARV_dtmCrop)) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 #Our DTM seems to contain data and plots just fine.
 
 #Next we plot the DTM Hillshade on its own to see whether everything is OK.
 
 ggplot() +
-geom_raster(data = DTM_hill_HARV_df,
-    aes(x = x, y = y,
-    alpha = HARV_DTMhill_WGS84)) + 
-    coord_quickmap()
+  geom_raster(data = DTM_hill_HARV_df,
+              aes(x = x, y = y,
+                  alpha = HARV_DTMhill_WGS84)) + 
+  coord_quickmap()
 
 
 #If we look at the axes, we can see that the projections of the two 
@@ -175,10 +177,11 @@ extent(DTM_hill_HARV)
 
 ## Deal with Raster Resolution
 
-#Let's next have a look at the resolution of our reprojected hillshade versus our original data.
+#Let's next have a look at the resolution of our reprojected hillshade versus 
+#our original DTM data, that we are looking to overlay
 
 res(DTM_hill_UTMZ18N_HARV)
-res(DTM_hill_HARV)
+res(DTM_HARV)
 
 
 #These two resolutions are different, but theyre representing the same 
@@ -188,14 +191,14 @@ res(DTM_hill_HARV)
 #(`res=`) within the `projectRaster()` function.
 
 DTM_hill_UTMZ18N_HARV <- projectRaster(DTM_hill_HARV,
-                                  crs = crs(DTM_HARV),
-                                  res = 1)
+                                       crs = crs(DTM_HARV),
+                                       res = 1)
 
 
 #Let's double-check our resolution to be sure
 
 res(DTM_hill_UTMZ18N_HARV)
-res(DTM_hill_HARV)
+res(DTM_HARV)
 
 #Now both our resolutions and our CRSs match, so we can plot these two
 #data sets together. For plotting with `ggplot()`, we will need to
@@ -207,14 +210,14 @@ DTM_hill_HARV_2_df <- as.data.frame(DTM_hill_UTMZ18N_HARV, xy = TRUE)
 #We can now create a plot of this data.
 
 ggplot() +
-     geom_raster(data = DTM_HARV_df , 
-                 aes(x = x, y = y, 
+  geom_raster(data = DTM_HARV_df , 
+              aes(x = x, y = y, 
                   fill = HARV_dtmCrop)) + 
-     geom_raster(data = DTM_hill_HARV_2_df, 
-                 aes(x = x, y = y, 
-                   alpha = HARV_DTMhill_WGS84)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
+  geom_raster(data = DTM_hill_HARV_2_df, 
+              aes(x = x, y = y, 
+                  alpha = HARV_DTMhill_WGS84)) +
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 
 #We have now successfully draped the Digital Terrain Model on top of our
@@ -226,34 +229,34 @@ ggplot() +
 
 ## Answers
 
- # import DSM
- DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
- # import DSM hillshade
- DSM_hill_SJER_WGS <-
- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
- 
- # reproject raster
- DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS,
-                                   crs = crs(DSM_SJER),
-                                   res = 1)
- 
- # convert to data.frames
- DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
- 
- DSM_hill_SJER_df <- as.data.frame(DTM_hill_UTMZ18N_SJER, xy = TRUE)
- 
- ggplot() +
-      geom_raster(data = DSM_hill_SJER_df, 
-                  aes(x = x, y = y, 
-                    alpha = SJER_DSMhill_WGS84)
-                  ) +
-      geom_raster(data = DSM_SJER_df, 
+# import DSM
+DSM_SJER <- raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_dsmCrop.tif")
+# import DSM hillshade
+DSM_hill_SJER_WGS <-
+  raster("data/NEON-DS-Airborne-Remote-Sensing/SJER/DSM/SJER_DSMhill_WGS84.tif")
+
+# reproject raster
+DTM_hill_UTMZ18N_SJER <- projectRaster(DSM_hill_SJER_WGS,
+                                       crs = crs(DSM_SJER),
+                                       res = 1)
+
+# convert to data.frames
+DSM_SJER_df <- as.data.frame(DSM_SJER, xy = TRUE)
+
+DSM_hill_SJER_df <- as.data.frame(DTM_hill_UTMZ18N_SJER, xy = TRUE)
+
+ggplot() +
+  geom_raster(data = DSM_hill_SJER_df, 
               aes(x = x, y = y, 
-                   fill = SJER_dsmCrop,
-                   alpha=0.8)
-              ) + 
-      scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-      coord_quickmap()
+                  alpha = SJER_DSMhill_WGS84)
+  ) +
+  geom_raster(data = DSM_SJER_df, 
+              aes(x = x, y = y, 
+                  fill = SJER_dsmCrop,
+                  alpha=0.8)
+  ) + 
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 ## Answers
 

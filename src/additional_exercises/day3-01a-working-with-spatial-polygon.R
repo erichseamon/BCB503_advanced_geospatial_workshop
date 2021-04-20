@@ -1,3 +1,8 @@
+#Title: day3-01a-working-with-spatial-polygon.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 # 
 # The  will use following data set fo US Atlantic regions (expcept Florida)  which could be avilable fro download from  [here]

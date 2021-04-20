@@ -1,6 +1,16 @@
+#Title: day3-04-local-regression.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
+
+
 #One short example with California precipitation data
 #if (!require("rspatial")) devtools::install_github('rspatial/rspatial')
 #library(rspatial)
+
+library( spgwr )
+
 
 datafolder <- "data/GWR/"
 counties <- readShapePoly(paste0(datafolder, "counties.shp", sep=""))
@@ -27,7 +37,6 @@ spt <- spTransform(sp, alb)
 ctst <- spTransform(counties, alb)
 
 #Get the optimal bandwidth
-library( spgwr )
 ## NOTE: This package does not constitute approval of GWR
 ## as a method of spatial analysis; see example(gwr)
 bw <- gwr.sel(pan ~ ALT, data=spt)
@@ -47,6 +56,6 @@ coef_slope <- r
 intercept <- r
 coef_slope[!is.na(coef_slope)] <- g$SDF$ALT
 intercept[!is.na(intercept)] <- g$SDF$'(Intercept)'
-s <- stack(intercept, coef_slope)
-names(s) <- c('intercept', 'slope of coefficient')
+s <- stack(coef_slope, intercept)
+names(s) <- c('slope of coefficient', 'intercept')
 plot(s)

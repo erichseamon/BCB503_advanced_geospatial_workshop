@@ -1,8 +1,8 @@
-#Title: rv-10-vector-csv-to-shapefile-r.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day2-05-vector-csv-to-shapefile-r.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 library(raster)
 library(rgdal)
@@ -12,10 +12,10 @@ library(sf)
 
 
 # Learners will have this data loaded from earlier episodes
-lines_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-aoi_boundary_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-country_boundary_US <- st_read("../data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
-point_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 #This episode will review how to import spatial points stored in 
 #`.csv` (Comma Separated Value) format into R as an `sf` spatial object. 
@@ -52,7 +52,7 @@ point_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.s
 #and look at the structure of that new object:
 
 plot_locations_HARV <-
-  read.csv("../data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
+  read.csv("data/NEON-DS-Site-Layout-Files/HARV/HARV_PlotLocations.csv")
 
 str(plot_locations_HARV)
 

@@ -1,4 +1,10 @@
-# 
+#Title: day3-02-regression-kriging.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
+
+
 # Regression kriging (RK) mathematically equivalent to the universal kriging or kriging with external drift, where auxiliary 
 # predictors are used directly to solve the kriging weights.  Regression kriging combines a regression model with simple 
 # kriging of the regression residuals. The experimental variogram of residuals is first computed and modeled, and then 
@@ -228,14 +234,34 @@
           theme(plot.title = element_text(hjust = 0.5))
         
         grid.arrange(glm1,glm2,glm3,glm4, ncol = 4)  # Multiplot 
+
         
         
         ### Random Forest
         
-        
-        #Random forests, based on the assemblage of multiple iterations of decision trees, have become a major data analysis tool that performs well in comparison to single iteration classification and regression tree analysis [Heidema et al., 2006]. Each tree is made by bootstrapping of the original data set which allows for robust error estimation with the remaining test set, the so-called Out-Of-Bag (OOB) sample. The excluded OOB samples are predicted from the bootstrap samples and by combining the OOB predictions from all trees. The RF algorithm can outperform linear regression, and unlike linear regression, RF has no requirements considering the form of the probability density function of the target variable [Hengl et al., 2015; Kuhn and Johnson, 2013]. One major disadvantage of RF is that it is difficult to interpret the relationships between the response and predictor variables. However, RF allows estimation of the importance of variables as measured by the mean decrease in prediction accuracy before and after permuting OOB variables. The difference between the two are then averaged over all trees and normalized by the standard deviation of the differences (Ahmed et al., 2017).
-        
-        #First, will fit the RF model with a comprehensive environmental co-variate, Then,  we will compute and model the variogram of the of residuals of the RF model and then simple kriging (SK) will be  applied to the residuals to estimate the spatial prediction of the residuals (regional trend). Finally, RF  regression predicted results, and the SK kriged residuals will be added to estimate the interpolated soil organic C. 
+        # 
+        # Random forests, based on the assemblage of multiple iterations of decision 
+        # trees, have become a major data analysis tool that performs well in comparison 
+        # to single iteration classification and regression tree analysis [Heidema et al., 2006]. 
+        # Each tree is made by bootstrapping of the original data set which allows for robust 
+        # error estimation with the remaining test set, the so-called Out-Of-Bag (OOB) sample. 
+        # The excluded OOB samples are predicted from the bootstrap samples and by combining 
+        # the OOB predictions from all trees. The RF algorithm can outperform linear regression, 
+        # and unlike linear regression, RF has no requirements considering the form of the 
+        # probability density function of the target variable [Hengl et al., 2015; Kuhn and Johnson, 2013]. 
+        # One major disadvantage of RF is that it is difficult to interpret the relationships 
+        # between the response and predictor variables. However, RF allows estimation of the 
+        # importance of variables as measured by the mean decrease in prediction accuracy 
+        # before and after permuting OOB variables. The difference between the two are then 
+        # averaged over all trees and normalized by the standard deviation of the differences 
+        # (Ahmed et al., 2017).
+        # 
+        # First, will fit the RF model with a comprehensive environmental co-variate, Then,  
+        # we will compute and model the variogram of the of residuals of the RF model and 
+        # then simple kriging (SK) will be  applied to the residuals to estimate the 
+        # spatial prediction of the residuals (regional trend). Finally, RF  regression 
+        # predicted results, and the SK kriged residuals will be added to estimate the 
+        # interpolated soil organic C. 
         
         
         #### Fit Random Forest  Model (RF)
@@ -379,6 +405,12 @@
         
         
         
+        #---EXTRA EXERCISE-ENSEMBLING
+        
+        
+        
+        
+        
         ### Meta Ensemble Machine Learning 
         # 
         # Ensemble machine learning methods use multiple learning algorithms to obtain better predictive performance 
@@ -393,7 +425,8 @@
         
         
 # 
-#         We will built a random forest (RF)  regression model by stacking of GLM and RF regression models 
+#         We will built a random forest (RF)  regression model by stacking of 
+          #GLM and RF regression models 
 #         (sub-models) to predict  SOC.
 #         
         
@@ -428,8 +461,9 @@
         
         
         #### Combine several predictive models via stacking
-        
-        #We will use **caretStack()** function with  **"method"** parameter **"rf"** for random forest regression model
+        # 
+        # We will use **caretStack()** function with  **"method"** parameter **"rf"** 
+        # for random forest regression model
         
         stackControl <- trainControl(method="repeatedcv", 
                                      number=10, 
@@ -443,14 +477,13 @@
         
         #### Ensemble results
         
-        ```{r}
         stack.rf.cv<-stack.rf$ens_model$resample
         stack.rf.results<-print(stack.rf)
-        ```
-        
+
         #### Variogram modeling of residuals 
         
-        Now, we will calculate  residuals of RF model since **resid()** function does not work here.
+        # Now, we will calculate  residuals of RF model since **resid()** function does 
+        # not work here.
         
         train.xy$REG.SOC.bc<-predict(stack.rf,train.x)
         train.xy$residuals.stack<-(train.xy$SOC.bc-train.xy$REG.SOC.bc)
@@ -458,14 +491,13 @@
         
         # Variogram
         v.stack<-variogram(residuals.stack~ 1, data = train.xy)
-        # Intial parameter set by eye esitmation
+        # Intial parameter set by eye estimation
         m.stack<-vgm(0.15,"Exp",40000,0.05)
         # least square fit
         m.f.stack<-fit.variogram(v.stack, m.stack)
         m.f.stack
         
-        
-        #### Plot varigram and fitted model:
+        #### Plot variogram and fitted model:
         plot(v.stack, pl=F, 
              model=m.f.stack,
              col="black", 
@@ -499,12 +531,12 @@
         grid.xy$SK.stack<-SK.stack$var1.pred
         # Add RF predicted + SK preedicted residuals
         grid.xy$RK.stack.bc<-(grid.xy$stack+grid.xy$SK.stack)
-        ```
+
         
         
         #### Back transformation 
         
-        We for back transformation we use transformation parameters
+        #We back transform using transformation parameters
         
         k1<-1/0.2523339                                   
         grid.xy$RK.stack <-((grid.xy$RK.stack.bc *0.2523339+1)^k1)

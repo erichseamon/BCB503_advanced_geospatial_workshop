@@ -1,3 +1,8 @@
+#Title: day4-03-geographically-weighted-random-forest.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
+#University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 # Geographically Weighted Random Forest Regression (GWRFR)
 
@@ -23,8 +28,8 @@
 #   
   
 ##### Load R packages
-dyn.load("/opt/modules/climatology/gdal/3.0.2/lib/libgdal.so")
-library(sf, lib="/mnt/lfs2/erichs/R/x86_64-pc-linux-gnu-library/3.6/")
+#dyn.load("/opt/modules/climatology/gdal/3.0.2/lib/libgdal.so")
+#library(sf, lib="/mnt/lfs2/erichs/R/x86_64-pc-linux-gnu-library/3.6/")
 
 library(GWmodel)      ### GW models
 library(sp)           ## Data management

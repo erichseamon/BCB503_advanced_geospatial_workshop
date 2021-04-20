@@ -1,8 +1,8 @@
-#Title: rv-06-vector-open-shapefile-in-r.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day2-01-vector-open-shapefile-in-r.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 library(raster)
 library(rgdal)
@@ -45,7 +45,7 @@ library(sf)
 #Let's import our AOI:
 
 aoi_boundary_HARV <- st_read(
-  "../data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+  "data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
 
 ## Shapefile Metadata & Attributes
 
@@ -144,8 +144,8 @@ ggplot() +
 ## Answers
 
 #First we import the data: 
-lines_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-point_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
 
 
 #Then we check its class: 

@@ -1,8 +1,8 @@
-#Title: rv-05-raster-multi-band-in-r.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day1-04-raster-multi-band-in-r.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 library(raster)
 library(rgdal)
@@ -23,7 +23,7 @@ library(dplyr)
 #If we read a RasterStack object into R using the `raster()` function, it only reads
 #in the first band.
 
-RGB_band1_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+RGB_band1_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
 
 
 #We need to convert this data to a data frame in order to plot it with `ggplot`. 
@@ -76,7 +76,7 @@ RGB_band1_HARV
 #by specifying which band we want with `band = N` (N represents the band 
 #number we want to work with). To import the green band, we would use `band = 2`.
 
-RGB_band2_HARV <-  raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", band = 2)
+RGB_band2_HARV <-  raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", band = 2)
 
 
 #We can convert this data to a data frame and plot the same way we plotted the 
@@ -90,9 +90,11 @@ ggplot() +
               aes(x = x, y = y, alpha = HARV_RGB_Ortho)) + 
   coord_equal()
 
+#can add coord_quickmap()
+
 
 ## Challenge: Making Sense of Single Band Images
- 
+
 #Compare the plots of band 1 (red) and band 2 (green). Is the forested 
 #area darker or lighter in band 2 (the green band) compared to band 1 
 #(the red band)?
@@ -102,6 +104,8 @@ ggplot() +
 #We'd expect a *brighter* value for the forest in band 2 (green) than in
 #band 1 (red) because the leaves on trees of most often appear "green" -
 #healthy leaves reflect MORE green light than red light.
+
+
 
 
 ## Raster Stacks in R
@@ -133,7 +137,7 @@ RGB_stack_HARV[[2]]
 #We can also use the `ggplot` functions to plot the data in any layer
 #of our RasterStack object. Remember, we need to convert to a data
 #frame first. 
- 
+
 RGB_stack_HARV_df  <- as.data.frame(RGB_stack_HARV, xy = TRUE)
 
 
@@ -177,6 +181,11 @@ ggplot() +
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3)
 
+# 
+# plotRGB(x, r=1, g=2, b=3, scale, maxpixels=500000, stretch=NULL, 
+#         ext=NULL, interpolate=FALSE, colNA='white', alpha, bgalpha, addfun=NULL, zlim=NULL, 
+#         zlimcol=NULL, axes=FALSE, xlab='', ylab='', asp=NULL, add=FALSE, margins=FALSE, ...)
+
 
 #The image above looks pretty good. We can explore whether applying a stretch to
 #the image might improve clarity and contrast using `stretch="lin"` or
@@ -209,7 +218,7 @@ plotRGB(RGB_stack_HARV,
 #between 0 and 255.
 
 ## Challenge - NoData Values
- 
+
 #Let's explore what happens with NoData values when working with 
 #RasterStack objects and using the
 #`plotRGB()` function. We will use the 
@@ -236,9 +245,9 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.t
 
 #2) From the output above, we see that there are `NoData` values
 #and they are assigned the value of -9999. 
- 
+
 #3) The data has three bands. 
- 
+
 #4) To read in the file, we will use the `stack()` function: 
 
 HARV_NA <- stack("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_Ortho_wNA.tif")
@@ -307,7 +316,7 @@ plotRGB(RGB_brick_HARV)
 
 #We can view various functions (or methods) available to use on an R object with
 #`methods(class=class(objectNameHere))`. Use this to figure out:
- 
+
 #1. What methods can be used on the `RGB_stack_HARV` object?
 #2. What methods can be used on a single band within `RGB_stack_HARV`?
 #3. Why do you think there is a difference?
@@ -326,4 +335,3 @@ methods(class=class(RGB_stack_HARV[1]))
 
 #3) There are far more things one could or want to ask of a full stack than of
 #a single band.
-

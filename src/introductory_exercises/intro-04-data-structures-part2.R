@@ -1,13 +1,13 @@
 #Title: intro-04-structures-part2.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 
 #So far, you have seen the basics of manipulating data frames with our nordic data; now let’s use those skills to digest a more extensive dataset. Let’s read in the gapminder dataset that we downloaded previously:
 
-gapminder <- read.csv("../data/gapminder_data.csv")
+gapminder <- read.csv("data/gapminder_data.csv")
 
 
 #Files can also be downloaded directly from the Internet into a local folder
@@ -17,8 +17,8 @@ gapminder <- read.csv("../data/gapminder_data.csv")
 
 
 download.file("https://raw.githubusercontent.com/datacarpentry/r-intro-geospatial/master/_episodes_rmd/data/gapminder_data.csv",
-              destfile = "../data/gapminder_data.csv")
-gapminder <- read.csv("../data/gapminder_data.csv")
+              destfile = "data/gapminder_data.csv")
+gapminder <- read.csv("data/gapminder_data.csv")
 
 
 #Alternatively, you can also read in files directly into R

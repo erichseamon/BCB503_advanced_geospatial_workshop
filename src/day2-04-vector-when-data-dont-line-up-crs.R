@@ -1,8 +1,8 @@
-#Title: rv-09-vector-when-data-dont-line-up-crs.R
-#BCB503 Geospatial Workshop, April 23 and 24th, 2020
+#Title: day2-04-vector-when-data-dont-line-up-crs.R
+#BCB503 Geospatial Workshop, April 20th, 22nd, 27th, and 29th, 2021
 #University of Idaho
-#Data Carpentry Geospatial Analysis
-#Instructors: Erich Seamon, University of Idaho - Travis Seaborn, University of Idaho
+#Data Carpentry Advanced Geospatial Analysis
+#Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 
 library(raster)
@@ -25,10 +25,10 @@ library(dplyr)
 #Open and Plot Shapefiles in R episode.
 
 # learners will have this data loaded from previous episodes
-aoi_boundary_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
-lines_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
-point_HARV <- st_read("../data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
-CHM_HARV <- raster("../data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
+aoi_boundary_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HarClip_UTMZ18.shp")
+lines_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARV_roads.shp")
+point_HARV <- st_read("data/NEON-DS-Site-Layout-Files/HARV/HARVtower_UTM18N.shp")
+CHM_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/CHM/HARV_chmCrop.tif")
 CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 
@@ -83,7 +83,7 @@ roadColors <- c("blue", "green", "grey", "purple")[lines_HARV$TYPE]
 #and reprojected from the original data downloaded from the Census 
 #website to support the learning goals of this episode.
 
-state_boundary_US <- st_read("../data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
+state_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-State-Boundaries-Census-2014.shp")
 
 
 #Next, let's plot the U.S. states data:
@@ -100,7 +100,7 @@ ggplot() +
 #nicer. We will import
 #NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.
 
-country_boundary_US <- st_read("../data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
+country_boundary_US <- st_read("data/NEON-DS-Site-Layout-Files/US-Boundary-Layers/US-Boundary-Dissolved-States.shp")
 
 
 #If we specify a thicker line width using size = 2 for the border layer, 
