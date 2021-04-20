@@ -65,25 +65,24 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DTM/HARV_dtmCrop.tif")
 GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 
 
-
 #We've already loaded and worked with these two data files in
 #earlier episodes. Let's plot them each once more to remind ourselves
 #what this data looks like. First we'll plot the DTM elevation data: 
 
- ggplot() +
-      geom_raster(data = DTM_HARV_df , 
+ggplot() +
+  geom_raster(data = DTM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dtmCrop)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 
 #And then the DSM elevation data: 
 
- ggplot() +
-      geom_raster(data = DSM_HARV_df , 
+ggplot() +
+  geom_raster(data = DSM_HARV_df , 
               aes(x = x, y = y, fill = HARV_dsmCrop)) +
-     scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
-     coord_quickmap()
+  scale_fill_gradientn(name = "Elevation", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 
 ## Two Ways to Perform Raster Calculations
@@ -93,8 +92,8 @@ GDALinfo("data/NEON-DS-Airborne-Remote-Sensing/HARV/DSM/HARV_dsmCrop.tif")
 # 1. by directly subtracting the two rasters in R using raster math
 
 #2. or for more efficient processing - particularly if our rasters are 
- #large and/or the calculations we are performing are complex: using 
- #the `overlay()` function.
+#large and/or the calculations we are performing are complex: using 
+#the `overlay()` function.
 
 ## Raster Math & Canopy Height Models
 
@@ -112,18 +111,18 @@ CHM_HARV_df <- as.data.frame(CHM_HARV, xy = TRUE)
 
 #We can now plot the output CHM.
 
- ggplot() +
-   geom_raster(data = CHM_HARV_df , 
-               aes(x = x, y = y, fill = layer)) + 
-   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-   coord_quickmap()
+ggplot() +
+  geom_raster(data = CHM_HARV_df , 
+              aes(x = x, y = y, fill = layer)) + 
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 
 #Let's have a look at the distribution of values in our newly created
 #Canopy Height Model (CHM).
 
 ggplot(CHM_HARV_df) +
-    geom_histogram(aes(layer))
+  geom_histogram(aes(layer))
 
 
 #Notice that the range of values for the output CHM is between 0 and 30 
@@ -158,25 +157,28 @@ max(CHM_HARV_df$layer, na.rm = TRUE)
 #3)
 
 ggplot(CHM_HARV_df) +
-     geom_histogram(aes(layer))
+  geom_histogram(aes(layer))
 
 #4)
 
 ggplot(CHM_HARV_df) +
-     geom_histogram(aes(layer), colour="black", 
-                    fill="darkgreen", bins = 6)
+  geom_histogram(aes(layer), colour="black", 
+                 fill="darkgreen", bins = 6)
 
 #5) 
 
 custom_bins <- c(0, 10, 20, 30, 40)
 CHM_HARV_df <- CHM_HARV_df %>%
-                   mutate(canopy_discrete = cut(layer, breaks = custom_bins))
- 
+  mutate(canopy_discrete = cut(layer, breaks = custom_bins))
+
 ggplot() +
-   geom_raster(data = CHM_HARV_df , aes(x = x, y = y,
-                                        fill = canopy_discrete)) + 
-     scale_fill_manual(values = terrain.colors(4)) + 
-   coord_quickmap()
+  geom_raster(data = CHM_HARV_df , aes(x = x, y = y,
+                                       fill = canopy_discrete)) + 
+  scale_fill_manual(values = terrain.colors(4)) + 
+  coord_quickmap()
+
+#try topo.colors
+
 
 ## Efficient Raster Calculations: Overlay Function
 
@@ -229,17 +231,34 @@ CHM_ov_HARV_df <- as.data.frame(CHM_ov_HARV, xy = TRUE)
 
 #Now we can plot the CHM:
 
- ggplot() +
-   geom_raster(data = CHM_ov_HARV_df, 
-               aes(x = x, y = y, fill = layer)) + 
-   scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
-   coord_quickmap()
+ggplot() +
+  geom_raster(data = CHM_ov_HARV_df, 
+              aes(x = x, y = y, fill = layer)) + 
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+  coord_quickmap()
 
 #How do the plots of the CHM created with manual raster math 
-#and the `overlay()`
- 
- 
-#function compare?
+#and the `overlay()` function compare?
+
+#side by side
+
+
+
+g1 <- ggplot() +
+  geom_raster(data = CHM_HARV_df , 
+              aes(x = x, y = y, fill = layer)) + 
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+  coord_quickmap()
+
+g2 <- ggplot() +
+  geom_raster(data = CHM_ov_HARV_df, 
+              aes(x = x, y = y, fill = layer)) + 
+  scale_fill_gradientn(name = "Canopy Height", colors = terrain.colors(10)) + 
+  coord_quickmap()
+
+library(gridExtra)
+g3 <- grid.arrange(g1, g2, ncol=2)
+
 
 ## Export a GeoTIFF
 
@@ -257,7 +276,7 @@ CHM_ov_HARV_df <- as.data.frame(CHM_ov_HARV, xy = TRUE)
 #value (`NAflag = -9999`. We will also tell R to overwrite 
 #any data that is already in a file of the same name. 
 
-writeRaster(CHM_ov_HARV, "CHM_HARV.tiff",
+writeRaster(CHM_ov_HARV, "outputs/CHM_HARV.tiff",
             format="GTiff",
             overwrite=TRUE,
             NAflag=-9999)
@@ -313,8 +332,8 @@ writeRaster(CHM_ov_HARV, "CHM_HARV.tiff",
 #   create the CHM.
 
 CHM_ov_SJER <- overlay(DSM_SJER,
-                        DTM_SJER,
-                        fun = function(r1, r2){ return(r1 - r2) })
+                       DTM_SJER,
+                       fun = function(r1, r2){ return(r1 - r2) })
 
 #Convert the output to a dataframe:
 
@@ -324,36 +343,36 @@ CHM_ov_SJER_df <- as.data.frame(CHM_ov_SJER, xy = TRUE)
 #Create a histogram to check that the data distribution makes sense: 
 
 ggplot(CHM_ov_SJER_df) +
-     geom_histogram(aes(layer))
+  geom_histogram(aes(layer))
 
 
 #2) Create a plot of the CHM: 
 
-  ggplot() +
-       geom_raster(data = CHM_ov_SJER_df, 
-               aes(x = x, y = y, 
-                    fill = layer)
-               ) + 
-      scale_fill_gradientn(name = "Canopy Height", 
-         colors = terrain.colors(10)) + 
-      coord_quickmap()
+ggplot() +
+  geom_raster(data = CHM_ov_SJER_df, 
+              aes(x = x, y = y, 
+                  fill = layer)
+  ) + 
+  scale_fill_gradientn(name = "Canopy Height", 
+                       colors = terrain.colors(10)) + 
+  coord_quickmap()
 
- 
+
 #3) Export the CHM object to a file: 
 
 writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
-             format = "GTiff",
-             overwrite = TRUE,
-             NAflag = -9999)
+            format = "GTiff",
+            overwrite = TRUE,
+            NAflag = -9999)
 
 
 #4) Compare the SJER and HARV CHMs. 
 #Tree heights are much shorter in SJER. You can confirm this by 
 #looking at the histograms of the two CHMs. 
 
- ggplot(CHM_HARV_df) +
-     geom_histogram(aes(layer))
+ggplot(CHM_HARV_df) +
+  geom_histogram(aes(layer))
 
- ggplot(CHM_ov_SJER_df) +
-     geom_histogram(aes(layer))
+ggplot(CHM_ov_SJER_df) +
+  geom_histogram(aes(layer))
 
