@@ -4,6 +4,10 @@
 #Data Carpentry Advanced Geospatial Analysis
 #Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
+
+dyn.load("/opt/modules/climatology/gdal/3.0.2/lib/libgdal.so")
+#library(sf, lib="/mnt/lfs2/erichs/R/x86_64-pc-linux-gnu-library/3.6/")
+
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -65,7 +69,7 @@ aoi_boundary_HARV <- st_read(
 
 ## Spatial Metadata
 
-Key metadata for all shapefiles include:
+#Key metadata for all shapefiles include:
 
   #1. **Object Type:** the class of the imported object.
   #2. **Coordinate Reference System (CRS):** the projection of the data.

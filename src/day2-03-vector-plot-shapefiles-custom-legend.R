@@ -72,7 +72,7 @@ ggplot() +
 
 
 #Now lets adjust the legend titles by passing a `name` to the respective 
-`color` and `fill` palettes.
+#`color` and `fill` palettes.
 
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
