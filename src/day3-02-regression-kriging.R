@@ -11,7 +11,7 @@
 # simple kriging (SK) is applied to the residuals to give the spatial prediction of the residuals. 
 # 
 # 
-# In this exerciser we will use following regression model for regression kriging of SOC: 
+# In this exercise we will use following regression model for regression kriging of Soil Organic Carbon (SOC): 
 #   
 #   
 # Generalized Linear Model](#generalized-linear-model)
@@ -93,6 +93,8 @@
         
         #### Set control parameter
         
+        #using caret for train and trainControl
+        
         myControl <- trainControl(method="repeatedcv", 
                                   number=10, 
                                   repeats=5,
@@ -102,9 +104,14 @@
         ### Generalized Linear Model
         
         
-        #The Generalized Linear Model (GLM) is a flexible generalization of ordinary linear regression that allows for response variables that have error distribution models other than a normal distribution. 
+        #The Generalized Linear Model (GLM) is a flexible generalization of ordinary linear regression that allows for 
+        #response variables that have error distribution models other than a normal distribution. 
         
-        #First will fit the GLM model with a comprehensive environmental co-variate, Then,  we will compute and model the variogram of the of residuals of the GLM model and then simple kriging (SK) will be  applied to the residuals to estimate the spatial prediction of the residuals (regional trend). Finally, GLM  regression predicted results, and the SK kriged residuals will be added to estimate the interpolated soil organic C. 
+        #First will fit the GLM model with a comprehensive environmental co-variate, Then,  we will 
+        # compute and model the variogram of the residuals of the GLM model and then simple kriging (SK) 
+        # will be  applied to the residuals to estimate the spatial prediction of the residuals (regional trend). 
+        # Finally, GLM  regression predicted results, and the SK kriged residuals will be added to estimate the 
+        # interpolated soil organic C. 
         
         #### Fit Generalized Linear Model (GLM)
         
@@ -120,12 +127,13 @@
         
         #### Variogram modeling of GLM residuals 
         
-        #First, we have to extract the residuals of RF model, we will use **resid()** function to get residuals of RF model
+        #First, we have to extract the residuals of GLM model, we will use **resid()** function to get residuals of GLM model
         
         
         # Extract residuals
         train.xy$residuals.glm<-resid(GLM)
         # Variogram
+        #A Variogram is used to display the variability between data points as a function of distance.  
         v.glm<-variogram(residuals.glm~ 1, data = train.xy,cutoff=300000, width=300000/15)
         # Intial parameter set by eye esitmation
         m.glm<-vgm(0.15,"Exp",40000,0.05)
@@ -237,6 +245,13 @@
         
         grid.arrange(glm1,glm2,glm3,glm4, ncol = 4)  # Multiplot 
 
+        
+        #STOP HERE
+        
+        
+        #EXTRA
+        
+        
         
         
         ### Random Forest
@@ -408,10 +423,6 @@
         
         
         #---EXTRA EXERCISE-ENSEMBLING
-        
-        
-        
-        
         
         ### Meta Ensemble Machine Learning 
         # 
