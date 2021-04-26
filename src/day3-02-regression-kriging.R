@@ -18,7 +18,7 @@
 #     
 # Random Forest](#random-forest)
 #       
-# Meta Ensemble Machine Learning](#meta-ensemble-machine-learning)
+# EXTRA Meta Ensemble Machine Learning](#meta-ensemble-machine-learning)
 #         
 #         
 # We will use **caret** package for regression and **gstat** for geo-statistical modeling. 
@@ -56,9 +56,11 @@
         #First,  we will create a data.frame with SOC and continuous environmental data.
         
         #### Power transformation
+        # uses the maximum likelihood-like approach of Box and Cox (1964) to 
+        # select a transformatiion of a univariate or multivariate response 
+        # for normality, linearity and/or constant variance. 
         
         powerTransform(train$SOC)
-        
         train$SOC.bc<-bcPower(train$SOC, 0.2523339)
         
         #### Create dataframes
