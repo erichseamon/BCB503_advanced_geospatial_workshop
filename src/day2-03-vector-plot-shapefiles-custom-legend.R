@@ -72,7 +72,7 @@ ggplot() +
 
 
 #Now lets adjust the legend titles by passing a `name` to the respective 
-`color` and `fill` palettes.
+#`color` and `fill` palettes.
 
 ggplot() + 
   geom_sf(data = aoi_boundary_HARV, fill = "grey", color = "grey") +
@@ -136,7 +136,7 @@ blue_green <- c("blue", "darkgreen")
 ggplot() + 
    geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line") + 
    geom_sf(data = plot_locations, aes(fill = soilTypeOr), 
-           shape = 21, color = NA, show.legend = 'point') + 
+           shape = 21, color = "black", show.legend = 'point') + 
    scale_color_manual(name = "Line Type", values = road_colors,
      guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 
   scale_fill_manual(name = "Soil Type", values = blue_green,
@@ -149,7 +149,7 @@ ggplot() +
 ggplot() + 
    geom_sf(data = lines_HARV, aes(color = TYPE), show.legend = "line", size = 1) + 
   geom_sf(data = plot_locations, aes(fill = soilTypeOr, shape = soilTypeOr),
-           show.legend = 'point', colour = NA, size = 3) + 
+           show.legend = 'point', colour = "black", size = 3) + 
    scale_shape_manual(name = "Soil Type", values = c(21, 22)) +
    scale_color_manual(name = "Line Type", values = road_colors,
       guide = guide_legend(override.aes = list(linetype = "solid", shape = NA))) + 

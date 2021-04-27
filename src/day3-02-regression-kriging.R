@@ -5,21 +5,20 @@
 #Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
 
-# Regression kriging (RK) mathematically equivalent to the universal kriging or kriging with external drift, where auxiliary 
+#Geospatial Interpolation: Kriging
+
+
+# Regression kriging (RK) - mathematically equivalent to the universal kriging or kriging with external drift, where auxiliary 
 # predictors are used directly to solve the kriging weights.  Regression kriging combines a regression model with simple 
 # kriging of the regression residuals. The experimental variogram of residuals is first computed and modeled, and then 
 # simple kriging (SK) is applied to the residuals to give the spatial prediction of the residuals. 
 # 
 # 
-# In this exerciser we will use following regression model for regression kriging of SOC: 
+# In this exercise we will use following regression model for regression kriging of Soil Organic Carbon (SOC): 
 #   
 #   
 # Generalized Linear Model](#generalized-linear-model)
 #     
-# Random Forest](#random-forest)
-#       
-# Meta Ensemble Machine Learning](#meta-ensemble-machine-learning)
-#         
 #         
 # We will use **caret** package for regression and **gstat** for geo-statistical modeling. 
 #         
@@ -56,22 +55,24 @@
         #First,  we will create a data.frame with SOC and continuous environmental data.
         
         #### Power transformation
+        # uses the maximum likelihood-like approach of Box and Cox (1964) to 
+        # select a transformatiion of a univariate or multivariate response 
+        # for normality, linearity and/or constant variance. 
         
         powerTransform(train$SOC)
-        
         train$SOC.bc<-bcPower(train$SOC, 0.2523339)
         
         #### Create dataframes
         
         # train data
-        train.xy<-train[,c(1,24,8:9)]
-        train.df<-train[,c(1,24,11:21)]
+        train.xy<-train[,c(1,24,8:9)] #only ID, SOC.bc, and x.y
+        train.df<-train[,c(1,24,11:21)] #data with independent and dependent variables
         
-        # grid data
-        grid.xy<-grid[,c(1,2:3)]
-        grid.df<-grid[,c(4:14)]
+        # grid data (test)
+        grid.xy<-grid[,c(1,2:3)] #just lat long and ID 
+        grid.df<-grid[,c(4:14)] #data with independent and dependent variables
         
-        #  define response & predictors
+        #  define response & predictors as two separate data frames (training)
         RESPONSE<-train.df$SOC.bc
         train.x<-train.df[3:13]
         
@@ -83,6 +84,14 @@
         coordinates(grid.xy) = ~x+y
         
         
+        
+        ##plot our data
+        
+        plot(state)
+        points(train.xy, col="red")
+        
+        
+        
         #### Start foreach to parallelize for model fitting
         
         mc <- makeCluster(detectCores())
@@ -90,6 +99,8 @@
         
         
         #### Set control parameter
+        
+        #using caret for train and trainControl
         
         myControl <- trainControl(method="repeatedcv", 
                                   number=10, 
@@ -100,9 +111,18 @@
         ### Generalized Linear Model
         
         
-        #The Generalized Linear Model (GLM) is a flexible generalization of ordinary linear regression that allows for response variables that have error distribution models other than a normal distribution. 
+        #The Generalized Linear Model (GLM) is a flexible generalization of ordinary linear regression that allows for 
+        #response variables that have error distribution models other than a normal distribution. 
         
-        #First will fit the GLM model with a comprehensive environmental co-variate, Then,  we will compute and model the variogram of the of residuals of the GLM model and then simple kriging (SK) will be  applied to the residuals to estimate the spatial prediction of the residuals (regional trend). Finally, GLM  regression predicted results, and the SK kriged residuals will be added to estimate the interpolated soil organic C. 
+        #1. First will fit the GLM model 
+        
+        #2. Then,  we will compute and model the variogram of the residuals of the GLM model and then 
+        
+        #3. simple kriging (SK) will be applied to the residuals to estimate the spatial prediction of the residuals (regional trend). 
+        
+        #4. Finally, GLM  regression predicted results, and the SK kriged residuals will be added to estimate the interpolated soil organic C. 
+        
+        
         
         #### Fit Generalized Linear Model (GLM)
         
@@ -118,14 +138,18 @@
         
         #### Variogram modeling of GLM residuals 
         
-        #First, we have to extract the residuals of RF model, we will use **resid()** function to get residuals of RF model
+        #First, we have to extract the residuals of GLM model, we will use **resid()** function to get residuals of GLM model
+        #Residual = Observed value – Predicted value
         
+        # In evaluating the spatial dependence, we can i) model the spatial dependence in the systematic part of the 
+        # model, or ii) relax the assumption of independence and estimate the correlation between residuals.
         
         # Extract residuals
         train.xy$residuals.glm<-resid(GLM)
         # Variogram
+        #A Variogram is used to display the variability between data points as a function of distance.  
         v.glm<-variogram(residuals.glm~ 1, data = train.xy,cutoff=300000, width=300000/15)
-        # Intial parameter set by eye esitmation
+        # Intial parameter set by eye estimation
         m.glm<-vgm(0.15,"Exp",40000,0.05)
         # least square fit
         m.f.glm<-fit.variogram(v.glm, m.glm)
@@ -148,6 +172,9 @@
         
         #### GLM Prediction at grid location
         
+        #using our test to predict.  Remember that holding out your test from the train
+        #model is critical.  
+        
         grid.xy$GLM <- predict(GLM, grid.df)
         
         
@@ -160,11 +187,13 @@
                       beta = 0)            # residuals from a trend; expected value is 0     
         
         
+        
         #### Kriging prediction (SK + Regression Prediction)
         
         grid.xy$SK.GLM<-SK.GLM$var1.pred
         # Add RF predicted + SK preedicted residuals
         grid.xy$RK.GLM.bc<-(grid.xy$GLM+grid.xy$SK.GLM)
+        
         
         
         #### Back transformation 
@@ -174,6 +203,7 @@
         k1<-1/0.2523339                                   
         grid.xy$RK.GLM <-((grid.xy$RK.GLM.bc *0.2523339+1)^k1)
         summary(grid.xy)
+        
         
         
         #### Convert to raster
@@ -235,6 +265,16 @@
         
         grid.arrange(glm1,glm2,glm3,glm4, ncol = 4)  # Multiplot 
 
+        
+        #STOP HERE
+        
+        
+        
+        
+        
+        #EXTRA
+        
+        
         
         
         ### Random Forest
@@ -406,10 +446,6 @@
         
         
         #---EXTRA EXERCISE-ENSEMBLING
-        
-        
-        
-        
         
         ### Meta Ensemble Machine Learning 
         # 

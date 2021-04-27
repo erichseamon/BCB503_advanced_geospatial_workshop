@@ -235,7 +235,7 @@ coord_sf()
 #default colors, we can create a vector of colors - one for each
 #feature. To create this vector we can use the following syntax:
 
-`c("color_one", "color_two", "color_three")[object$factor]`
+#`c("color_one", "color_two", "color_three")[object$factor]`
 
 #Note in the above example we have
 
