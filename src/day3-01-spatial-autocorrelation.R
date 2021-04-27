@@ -151,6 +151,8 @@ neighbourhood_weights_list <- nb2listw(neighbourhood, style="W", zero.policy=TRU
 #check the weights for a single county
 neighbourhood_weights_list$weights[1]
 
+#totals to one
+sum(as.data.frame(neighbourhood_weights_list$weights[1]))
 
 
 #Manual calc of Morans I
@@ -189,6 +191,7 @@ gobal.moran.mc <- moran.mc(SPDF$Rate,
                            nsim=599)
 
 # View results (including p-value)
+
 gobal.moran.mc
 
 
