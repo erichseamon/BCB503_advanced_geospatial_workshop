@@ -141,6 +141,9 @@
         #First, we have to extract the residuals of GLM model, we will use **resid()** function to get residuals of GLM model
         #Residual = Observed value – Predicted value
         
+        # In evaluating the spatial dependence, we can i) model the spatial dependence in the systematic part of the 
+        # model, or ii) relax the assumption of independence and estimate the correlation between residuals.
+        
         # Extract residuals
         train.xy$residuals.glm<-resid(GLM)
         # Variogram
