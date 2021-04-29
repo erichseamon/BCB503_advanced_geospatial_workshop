@@ -64,6 +64,14 @@ control <- rfeControl(functions=rfFuncs, method="cv", number=10)
 # run the RFE algorithm
 results <- rfe(train.df[,3:12], as.factor(train.df[,14]), sizes=c(1:9), rfeControl=control)
 
+# RFE is a wrapper-type feature selection algorithm. This means that 
+# a different machine learning algorithm is given and used in the 
+# core of the method, is wrapped by RFE, and used to help select 
+# features. This is in contrast to filter-based feature selections 
+# that score each feature and select those features with the largest 
+# (or smallest) score.
+
+
 
 stopCluster(mc)
 p1<-predict(fit.rf, train.df, type = "raw")
