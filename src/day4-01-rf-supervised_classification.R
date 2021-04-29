@@ -25,6 +25,10 @@ dataFolder<-"data/"
 train.df<-read.csv(paste0(dataFolder,"Sentinel2/train_data.csv"), header = T)
 test.df<-read.csv(paste0(dataFolder,"Sentinel2/test_data.csv"), header = T)
 
+train.df$Landuse <- as.factor(train.df$Landuse)
+test.df$Landuse <- as.factor(test.df$Landuse)
+
+
 mc <- makeCluster(detectCores())
 registerDoParallel(mc)
 
@@ -44,11 +48,17 @@ fit.rf <- train(as.factor(Landuse)~B2+B3+B4+B4+B6+B7+B8+B8A+B11+B12,
                 trControl = myControl
 )
 
+# 
+# Cohen’s kappa statistic is a measure that 
+# can handle both multi-class and imbalanced class problems.
+
 
 fit.rf 
 
 importance <- varImp(fit.rf, scale=FALSE)
 plot(importance)
+
+#another interesting method - recursive feature elimination
 
 control <- rfeControl(functions=rfFuncs, method="cv", number=10)
 # run the RFE algorithm

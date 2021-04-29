@@ -12,7 +12,7 @@
 # account the neighbouring observations. This technique adopts the idea of the Geographically Weighted Regression, 
 # Kalogirou (2003). The main difference between a tradition (linear) GWR and GRF is that we can model non-stationarity 
 # coupled with a flexible non-linear model which is very hard to overfit due to its bootstrapping nature, thus relaxing 
-# the assumptions of traditional Gaussian statistics. Essential it was designed to be a bridge between machine learning 
+# the assumptions of traditional Gaussian statistics. Essentially it was designed to be a bridge between machine learning 
 # and geographical models, combining inferential and explanatory power. Additionally, it is suited for datasets with 
 # numerous predictors, due to the robust nature of the random forest algorithm in high dimensionality.
 #   
@@ -26,7 +26,7 @@
 # To implement the GRF we use a recently developed R package **SpatialML** (Kalogirou and Georganos 2018; “SpatialML.” 
 # R Foundation for Statistical Computing) 
 #   
-  
+
 ##### Load R packages
 #dyn.load("/opt/modules/climatology/gdal/3.0.2/lib/libgdal.so")
 #library(sf, lib="/mnt/lfs2/erichs/R/x86_64-pc-linux-gnu-library/3.6/")
@@ -65,13 +65,13 @@ df[, 5:9] = scale(df[, 5:9])
 
 Coords<-df[ ,2:3]
 grf.model <- grf(Rate ~ POV+SMOK+PM25+NO2+SO2, 
-           dframe=df, 
-           bw=40,              # a positive number, in the case of an "adaptive kernel" or a real in the case of a "fixed kernel".
-           ntree=500,          # n integer referring to the number of trees to grow for each of the local random forests.
-           kernel="adaptive",  # the kernel to be used in the regression. Options are "adaptive" or "fixed".
-           forests = TRUE,     # a option to save and export (TRUE) or not (FALSE) all the local forests
-           coords=Coords)      # a numeric matrix or data frame of two columns giving the X,Y coordinates of the observations
-           
+                 dframe=df, 
+                 bw=40,              # a positive number, in the case of an "adaptive kernel" or a real in the case of a "fixed kernel".
+                 ntree=500,          # n integer referring to the number of trees to grow for each of the local random forests.
+                 kernel="adaptive",  # the kernel to be used in the regression. Options are "adaptive" or "fixed".
+                 forests = TRUE,     # a option to save and export (TRUE) or not (FALSE) all the local forests
+                 coords=Coords)      # a numeric matrix or data frame of two columns giving the X,Y coordinates of the observations
+
 
 
 ### Global Variable Importnace
@@ -114,29 +114,29 @@ col.palette<-colorRampPalette(c("blue",  "sky blue", "green","yellow", "red"),sp
 col.palette.t<-colorRampPalette(c("blue",  "sky blue", "green","yellow","pink", "red"),space="rgb",interpolate = "linear") 
 
 smok<-spplot(county,"incMSE.SMOK", main = "Smoking", 
-       sp.layout=list(polys),
-       col="transparent",
-       col.regions=rev(col.palette.t(100)))
+             sp.layout=list(polys),
+             col="transparent",
+             col.regions=rev(col.palette.t(100)))
 
 pov<-spplot(county,"incMSE.POV", main = "Poverty", 
-       sp.layout=list(polys),
-       col="transparent",
-       col.regions=rev(col.palette.t(100)))
+            sp.layout=list(polys),
+            col="transparent",
+            col.regions=rev(col.palette.t(100)))
 
 pm25<-spplot(county,"incMSE.PM25", main = "PM25", 
-       sp.layout=list(polys),
-       col="transparent",
-       col.regions=rev(col.palette.t(100)))
+             sp.layout=list(polys),
+             col="transparent",
+             col.regions=rev(col.palette.t(100)))
 
 no2<-spplot(county,"incMSE.NO2", main = "NO2", 
-       sp.layout=list(polys),
-       col="transparent",
-       col.regions=rev(col.palette.t(100)))
+            sp.layout=list(polys),
+            col="transparent",
+            col.regions=rev(col.palette.t(100)))
 
 so2<-spplot(county,"incMSE.NO2", main = "SO2", 
-       sp.layout=list(polys),
-       col="transparent",
-       col.regions=rev(col.palette.t(100)))
+            sp.layout=list(polys),
+            col="transparent",
+            col.regions=rev(col.palette.t(100)))
 
 
 
@@ -151,9 +151,9 @@ county@data$loc_R2=grf.model$LGofFit$LM_Rsq100
 
 myPaletteRes <- colorRampPalette(c("lightseagreen","lightsteelblue1", "moccasin","hotpink", "red"))
 local_r2<-spplot(county,"loc_R2", main = "Local R2 (%)", 
-       sp.layout=list(polys),
-       col="transparent",
-       col.regions=myPaletteRes(100))
+                 sp.layout=list(polys),
+                 col="transparent",
+                 col.regions=myPaletteRes(100))
 #windows(width=4, height=3.5)
 #tiff( file="FIG_GWRP_Std_Residuals.tif", 
 #      width=4, height=3.5,units = "in", pointsize = 12, res=1600,

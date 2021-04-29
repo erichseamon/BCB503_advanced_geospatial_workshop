@@ -31,7 +31,9 @@ names(mf)
 
 data.scaled <- scale(as.matrix(mf@data[, 1:5]))
 pca <- princomp(data.scaled, cor = FALSE)
-(pca$sdev^2 / sum(pca$sdev^2)) * 100
+pca2 <- (pca$sdev^2 / sum(pca$sdev^2)) * 100
+barplot(pca2)
+biplot(pca)
 
 pca$loadings
 
