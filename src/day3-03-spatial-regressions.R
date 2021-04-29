@@ -12,7 +12,7 @@ library(maptools)
 
 # Set working directory
 #setwd(file.path(Sys.getenv("USERPROFILE"),"Desktop\\d3-sr\\data"))
-setwd("/mnt/lfs2/erichs/git/BCB503_advanced_geospatial_workshop/data/Puerto-Rico-Farm/")
+#setwd("/mnt/lfs2/erichs/git/BCB503_advanced_geospatial_workshop/data/Puerto-Rico-Farm/")
 dataFolder<-"data/Puerto-Rico-Farm/"
 
 # Read Puerto Rico farm data
@@ -27,7 +27,7 @@ y <- log(ifarm.den07 + 0.04)
 rain <- pr.f$rain_mean
 
 # Read spatial neighbor information
-pr.nb <- spdep::read.gal("PuertoRico.gal")
+pr.nb <- spdep::read.gal(paste0(dataFolder,"PuertoRico.gal"))
 # Generate listw object with W and B styles
 pr.listw <- nb2listw(pr.nb, style="W")
 pr.listb <- nb2listw(pr.nb, style="B")
