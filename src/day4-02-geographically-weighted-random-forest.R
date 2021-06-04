@@ -3,7 +3,7 @@
 #University of Idaho
 #Data Carpentry Advanced Geospatial Analysis
 #Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
- 
+
 # Geographically Weighted Random Forest Regression (GWRFR)
 
 # Geographical Random Forest (GRF) is a spatial analysis method using a local version of the Random Forest Regresson Model. 
@@ -102,7 +102,7 @@ county@data$incMSE.PM25=grf.model$Local.Pc.IncMSE$PM25
 county@data$incMSE.NO2=grf.model$Local.Pc.IncMSE$NO2
 county@data$incMSE.SO2=grf.model$Local.Pc.IncMSE$SO2
 
-
+ 
 
 #### Plot  local feature importance (IncMSE)
 
