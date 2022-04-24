@@ -4,6 +4,8 @@
 #Data Carpentry Advanced Geospatial Analysis
 #Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
+#Data Carpentry vignette: https://datacarpentry.org/r-raster-vector-geospatial/01-raster-structure/index.html
+
 library(raster)
 library(rgdal)
 library(ggplot2)

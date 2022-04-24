@@ -4,6 +4,8 @@
 #Data Carpentry Advanced Geospatial Analysis
 #Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
+#Data Carpentry Vingette: https://datacarpentry.org/r-raster-vector-geospatial/04-raster-calculations-in-r/index.html
+
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -121,6 +123,7 @@ ggplot() +
 #Let's have a look at the distribution of values in our newly created
 #Canopy Height Model (CHM).
 
+
 ggplot(CHM_HARV_df) +
   geom_histogram(aes(layer))
 
@@ -141,30 +144,33 @@ ggplot(CHM_HARV_df) +
 #no axes ticks / labels.
 
 ## Answers
-
+#1. What is the min and maximum value for the Harvard Forest Canopy Height Model (`CHM_HARV`) that we just created?
 #1) There are missing values in our data, so we need to specify 
 #`na.rm = TRUE`. 
 
 min(CHM_HARV_df$layer, na.rm = TRUE)
 max(CHM_HARV_df$layer, na.rm = TRUE)
 
-
+#2. What are two ways you can check this range of data for `CHM_HARV`?
 #2) Possible ways include: 
 #* Create a histogram
 #* Use the `min()` and `max()` functions.
 #* Print the object and look at the `values` attribute.
 
+#3. What is the distribution of all the pixel values in the CHM?
 #3)
 
 ggplot(CHM_HARV_df) +
   geom_histogram(aes(layer))
 
+#4. Plot a histogram with 6 bins instead of the default and change the color of the histogram.
 #4)
 
 ggplot(CHM_HARV_df) +
   geom_histogram(aes(layer), colour="black", 
                  fill="darkgreen", bins = 6)
 
+#5. Plot the `CHM_HARV` raster using breaks that make sense for the data. 
 #5) 
 
 custom_bins <- c(0, 10, 20, 30, 40)
@@ -360,7 +366,7 @@ ggplot() +
 
 #3) Export the CHM object to a file: 
 
-writeRaster(CHM_ov_SJER, "chm_ov_SJER.tiff",
+writeRaster(CHM_ov_SJER, "outputs/chm_ov_SJER.tiff",
             format = "GTiff",
             overwrite = TRUE,
             NAflag = -9999)

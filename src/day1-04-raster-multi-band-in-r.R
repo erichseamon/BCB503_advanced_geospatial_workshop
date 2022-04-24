@@ -4,6 +4,8 @@
 #Data Carpentry Advanced Geospatial Analysis
 #Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
+#Data Carpentry Vingette: https://datacarpentry.org/r-raster-vector-geospatial/05-raster-multi-band-in-r/index.html
+
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -180,10 +182,10 @@ ggplot() +
 
 plotRGB(RGB_stack_HARV,
         r = 1, g = 2, b = 3)
-
 # 
-# plotRGB(x, r=1, g=2, b=3, scale, maxpixels=500000, stretch=NULL, 
-#         ext=NULL, interpolate=FALSE, colNA='white', alpha, bgalpha, addfun=NULL, zlim=NULL, 
+# 
+# plotRGB(x, r=1, g=2, b=3, scale, maxpixels=500000, stretch=NULL,
+#         ext=NULL, interpolate=FALSE, colNA='white', alpha, bgalpha, addfun=NULL, zlim=NULL,
 #         zlimcol=NULL, axes=FALSE, xlab='', ylab='', asp=NULL, add=FALSE, margins=FALSE, ...)
 
 

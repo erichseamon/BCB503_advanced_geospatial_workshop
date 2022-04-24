@@ -12,7 +12,7 @@ library(rgdal)        # spatial data processing
 library(raster)       # raster processing
 library(plyr)         # data manipulation 
 library(dplyr)        # data manipulation 
-library(RStoolbox)    # ploting spatial data 
+#library(RStoolbox)    # ploting spatial data 
 library(RColorBrewer) # color
 library(ggplot2)      # ploting
 library(sp)           # spatial data

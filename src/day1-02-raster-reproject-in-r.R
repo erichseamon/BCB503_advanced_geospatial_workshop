@@ -4,6 +4,8 @@
 #Data Carpentry Advanced Geospatial Analysis
 #Instructors: Erich Seamon, University of Idaho - Li Huang, University of Idaho
 
+#Data Carpentry Vingette: https://datacarpentry.org/r-raster-vector-geospatial/03-raster-reproject-in-r/index.html
+
 library(raster)
 library(rgdal)
 library(ggplot2)
@@ -26,8 +28,8 @@ library(dplyr)
 
 #For this episode, we will be working with the Harvard Forest Digital Terrain
 #Model data. This differs from the surface model data we've been 
-#working with so far in that the digital terrain model (DTM) 
-#includes the tops of trees, while the digital surface model (DSM) 
+#working with so far in that the digital terrain model (DSM) 
+#includes the tops of trees, while the digital surface model (DTM) 
 #shows the ground level.
 
 #We'll be looking at another model (the canopy height model) later
