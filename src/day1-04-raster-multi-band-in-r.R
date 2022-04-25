@@ -25,7 +25,7 @@ library(dplyr)
 #If we read a RasterStack object into R using the `raster()` function, it only reads
 #in the first band.
 
-RGB_band1_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif")
+RGB_band1_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", band = 1)
 
 
 #We need to convert this data to a data frame in order to plot it with `ggplot`. 
@@ -107,7 +107,22 @@ ggplot() +
 #band 1 (red) because the leaves on trees of most often appear "green" -
 #healthy leaves reflect MORE green light than red light.
 
+g1 <- ggplot() +
+  geom_raster(data = RGB_band1_HARV_df,
+              aes(x = x, y = y, alpha = HARV_RGB_Ortho)) + 
+  coord_quickmap()
 
+g2 <- ggplot() +
+  geom_raster(data = RGB_band2_HARV_df,
+              aes(x = x, y = y, alpha = HARV_RGB_Ortho)) + 
+  coord_quickmap()
+
+grid.arrange(g1,g2)
+
+
+ggplot() + 
+  geom_histogram(data=RGB_band1_HARV_df, aes(HARV_RGB_Ortho),fill = "red", alpha = 0.2) +
+  geom_histogram(data=RGB_band2_HARV_df, aes(HARV_RGB_Ortho),fill = "green", alpha = 0.2) 
 
 
 ## Raster Stacks in R
