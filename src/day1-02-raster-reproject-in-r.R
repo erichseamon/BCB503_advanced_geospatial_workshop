@@ -28,8 +28,8 @@ library(dplyr)
 
 #For this episode, we will be working with the Harvard Forest Digital Terrain
 #Model data. This differs from the surface model data we've been 
-#working with so far in that the digital terrain model (DSM) 
-#includes the tops of trees, while the digital surface model (DTM) 
+#working with so far in that the digital surface model (DSM) 
+#includes the tops of trees, while the digital terrain model (DTM) 
 #shows the ground level.
 
 #We'll be looking at another model (the canopy height model) later
