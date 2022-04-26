@@ -27,7 +27,6 @@ library(dplyr)
 
 RGB_band1_HARV <- raster("data/NEON-DS-Airborne-Remote-Sensing/HARV/RGB_Imagery/HARV_RGB_Ortho.tif", band = 1)
 
-
 #We need to convert this data to a data frame in order to plot it with `ggplot`. 
 
 RGB_band1_HARV_df  <- as.data.frame(RGB_band1_HARV, xy = TRUE)
@@ -119,10 +118,27 @@ g2 <- ggplot() +
 
 grid.arrange(g1,g2)
 
+#green band doesnt seem brighter than red band???
+
 
 ggplot() + 
   geom_histogram(data=RGB_band1_HARV_df, aes(HARV_RGB_Ortho),fill = "red", alpha = 0.2) +
   geom_histogram(data=RGB_band2_HARV_df, aes(HARV_RGB_Ortho),fill = "green", alpha = 0.2) 
+
+#fixing the grayscale palette, reversing the brightness/radiometric resolution
+
+grayscale_colors <- gray.colors(100,  # number of different color levels 
+                     start = 0.0,    # how black (0) to go
+                     end = 1.0,      # how white (1) to go
+                     gamma = 2.2,    # correction between how a digital 
+                     # camera sees the world and how human eyes see it
+                     alpha = NULL)   #Null=colors are not transparent
+
+plot(RGB_stack_HARV, 
+       col=grayscale_colors)
+
+#https://www.neonscience.org/resources/learning-hub/tutorials/dc-multiband-rasters-r
+
 
 
 ## Raster Stacks in R
