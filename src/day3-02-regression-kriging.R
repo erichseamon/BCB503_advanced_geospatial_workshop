@@ -40,7 +40,6 @@
         
         #### Load Data
         
-        #The soil organic carbon data (train and test data set) could be found [here](https://www.dropbox.com/s/d6nnlu2da93mp48/DATA_08.7z?dl=0).  
         
         
         # Define data folder
@@ -120,12 +119,6 @@
         
         #3. simple kriging (SK) will be applied to the residuals to estimate the spatial prediction of the residuals (regional trend). 
         
-        #4. Finally, GLM  regression predicted results, and the SK kriged residuals will be added to estimate the interpolated soil organic C. 
-        
-        
-        
-        #### Fit Generalized Linear Model (GLM)
-        
         set.seed(1856)
         GLM<-train(train.x,
                    RESPONSE,
@@ -133,6 +126,12 @@
                    trControl=myControl,
                    preProc=c('center', 'scale'))
         print(GLM)
+        #4. Finally, GLM  regression predicted results, and the SK kriged residuals will be added to estimate the interpolated soil organic C. 
+        
+        
+        
+        #### Fit Generalized Linear Model (GLM)
+        
         
         
         

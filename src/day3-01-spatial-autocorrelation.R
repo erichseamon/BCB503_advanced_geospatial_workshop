@@ -76,13 +76,6 @@ COUNTY<-shapefile(paste0(dataFolder,"COUNTY_ATLANTIC.shp"))
 state<-shapefile(paste0(dataFolder,"STATE_ATLANTIC.shp"))
 df<-read.csv(paste0(dataFolder,"data_atlantic_1998_2012.csv"), header=T)
 
-
-
-
-
-
-
-
 df[6] <- lapply(df[6], as.numeric) # Rate data to numeric
 SPDF<-merge(COUNTY,df, by="FIPS")
 names(SPDF)
@@ -104,6 +97,7 @@ SMOKING <-spplot(SPDF, "SMOK", main="SMOKING",
 PM25 <-spplot(SPDF, "PM25", main="PM25", 
                  col.regions=col.palette.1(100))
 
+grid.arrange(mortality, NO2, SO2, SMOKING, PM25, ncol=5)
 
 #calculate a basic variogram from the direct Rate data
 SPDF_df <- as.data.frame(SPDF)
@@ -243,7 +237,6 @@ plot(gobal.moran.mc, main="", las=1)
 
 local.moran.results <- localmoran(SPDF$Rate,
                                   neighbourhood_weights_list,
-                                  p.adjust.method="bonferroni",
                                   na.action=na.exclude,
                                   zero.policy=TRUE)
 

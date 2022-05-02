@@ -128,6 +128,8 @@ lines_HARV$TYPE
 
 levels(lines_HARV$TYPE)
 
+#lines_HARV is a character.  Need to convert to a factor
+#lines_HARV$TYPE <- as.factor(lines_HARV$TYPE)
 
 ### Subset Shapefiles
 
