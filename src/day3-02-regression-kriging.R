@@ -203,9 +203,7 @@
         grid.xy$RK.GLM <-((grid.xy$RK.GLM.bc *0.2523339+1)^k1)
         summary(grid.xy)
         
-        
-        
-        #### Convert to raster
+  
         
         GLM<-rasterFromXYZ(as.data.frame(grid.xy)[, c("x", "y", "GLM")])
         SK.GLM<-rasterFromXYZ(as.data.frame(grid.xy)[, c("x", "y", "SK.GLM")])
