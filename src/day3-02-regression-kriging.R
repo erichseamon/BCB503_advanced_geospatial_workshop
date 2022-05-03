@@ -148,9 +148,9 @@
         # Variogram
         #A Variogram is used to display the variability between data points as a function of distance.  
         v.glm<-variogram(residuals.glm~ 1, data = train.xy,cutoff=300000, width=300000/15)
-        # Intial parameter set by eye estimation
+        # Initial parameter set by eye estimation
         m.glm<-vgm(0.15,"Exp",40000,0.05)
-        # least square fit
+        # least square fit.  fitting ranges / sills from a variogram model to the sample variogram (residuals)
         m.f.glm<-fit.variogram(v.glm, m.glm)
         m.f.glm
         
