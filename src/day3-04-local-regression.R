@@ -41,3 +41,13 @@ adapt.gauss
 # Run GWR
 res.adapt <- gwr(y ~ rain, data=pr.f, coords=cbind(pr.f$long, pr.f$lat), adapt=adapt.gauss)
 res.adapt
+
+#Map farm density(left), rainfall(middle), and the coefficient of rainfall(right)
+pr.f$coe<-res.adapt$SDF$rain
+shp<-shapefile(paste0(dataFolder,"PuertoRico_SPCS.shp"))
+merge_shp<-merge(shp,pr.f,by='ID')
+p1<-spplot(merge_shp,'y')
+p2<-spplot(merge_shp,'rain')
+p3<-spplot(merge_shp,'coe')
+p4 <- grid.arrange(p1, p2, p3, ncol=3)
+p4
